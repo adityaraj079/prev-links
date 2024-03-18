@@ -1,16 +1,17 @@
 {
     "version": 2,
     "builds": [
-      { "src": "/frontend", "use": "@vercel/static-build", "config": { "distDir": "build" } },
-      { "src": "/backend", "use": "@vercel/node" }
-    ],
-    "routes": [
-      { "src": "/frontend/(.*)", "dest": "/frontend/$1" },
-      { "src": "/backend/(.*)", "dest": "/backend/$1" },
-      { "src": "/frontend/(.*)", "dest": "/frontend/$1" }
-    ],
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/frontend" }
+      {
+        "src": "frontend/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "frontend/build"
+        }
+      },
+      {
+        "src": "backend/app.py",
+        "use": "@vercel/python"
+      }
     ]
   }
   
