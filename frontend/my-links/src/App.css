@@ -6,10 +6,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 5px;
 }
 
 .link-box {
-  width: 250px;
+  width: 220px;
   height: 150px; /* Adjust height as needed */
   margin: 20px;
   border: 1px solid #ccc;
@@ -38,4 +39,38 @@
   /* white-space: nowrap; */
   /* overflow: hidden; */
   word-wrap: break-word;
+}
+
+.site-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: 50px; /* Adjust to match the width of the sidebar */
+  
+}
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination li {
+  margin-right: 5px;
+}
+
+.pagination li a {
+  display: inline-block;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.pagination li a:hover {
+  background-color: #cccaca;
+}
+
+.pagination li.active a{
+  background-color: rgb(167, 171, 171); /* Change to the desired color */
+  
 }

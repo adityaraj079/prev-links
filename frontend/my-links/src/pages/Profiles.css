@@ -1,0 +1,24 @@
+.page-header {
+    margin-bottom: 20px;
+  }
+  
+  .profiles-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .profile-box {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+  }
+  
+  .profile-box h2 {
+    margin-bottom: 10px;
+  }
+  
