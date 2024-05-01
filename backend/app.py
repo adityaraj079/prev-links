@@ -40,4 +40,4 @@ def get_names():
     return jsonify(names_with_urls)
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True)
