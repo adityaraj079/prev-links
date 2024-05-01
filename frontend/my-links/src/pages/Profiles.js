@@ -7,7 +7,7 @@ const Profiles = () => {
   const [profiles, setProfiles] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/get_names')
+    fetch('https://links-backend-six.vercel.app/get_names')
       .then(response => response.json())
       .then(data => setProfiles(data))
       .catch(error => console.error('Error:', error));

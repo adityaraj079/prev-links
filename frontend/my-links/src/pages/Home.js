@@ -9,7 +9,7 @@ function Home() {
   const [linksPerPage] = useState(40);
 
   useEffect(() => {
-    fetch('http://localhost:5000/get_links_with_titles')
+    fetch('https://links-backend-six.vercel.app/get_links_with_titles')
       .then(response => response.json())
       .then(data => setLinks(data))
       .catch(error => console.error('Error:', error));
