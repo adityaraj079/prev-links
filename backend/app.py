@@ -5,6 +5,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')  #Decorator (which comes with function)
+def welcome():
+    return "This is starting page"
+
 # Define endpoint to fetch links with titles
 @app.route('/get_links_with_titles')
 def get_links_with_titles():
