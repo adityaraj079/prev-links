@@ -13,6 +13,9 @@ const Sidebar = () => {
         <li>
           <Link to="/profiles">Profiles</Link>
         </li>
+        <li>
+          <Link to="/terabox">Terabox</Link>
+        </li>
         {/* Add more sidebar links as needed */}
       </ul>
     </div>

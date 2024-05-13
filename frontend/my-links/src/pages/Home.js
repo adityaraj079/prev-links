@@ -10,9 +10,20 @@ function Home() {
 
   useEffect(() => {
     fetch('https://links-backend-six.vercel.app/get_links_with_titles')
-      .then(response => response.json())
-      .then(data => setLinks(data))
-      .catch(error => console.error('Error:', error));
+    // fetch('http://localhost:5000/get_links_with_titles')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!Array.isArray(data)) {
+        throw new Error('Data is not an array');
+      }
+      setLinks(data);
+    })
+    .catch(error => console.error('Error fetching data:', error));
   }, []);
 
   // Get current links
@@ -27,13 +38,20 @@ function Home() {
     <div className="App">
       <Sidebar />   {/* Render the sidebar component */}
       <header className="App-header">
-        <h1>This is Home</h1>
+        <div className='page-name'><h1>This is Home</h1> </div>
         <div className='site-container'>
           <div className="links-container">
             {currentLinks.map((item, index) => (
               <div className="link-box" key={index}>
-                <a href={item.link} target="_blank" rel="noreferrer noopener">
-                  <div className="title">{item.link ? item.link : item.link}</div>
+                <h3>{item.title}</h3>
+                <a href={item.link} target="_blank" rel="noreferrer noopener" style={{ color: 'white' }}>
+                {item.video_url ? (
+                    <img src={item.video_url} alt={item.link} />
+                ) : (
+                    <img src={item.image_url} alt={item.link} />
+                )}
+
+                {/* <img src={item.image_url === "Img not Found" ? "alternative_image_url" : item.image_url} alt={item.link} /> */}
                 </a>
               </div>
             ))}

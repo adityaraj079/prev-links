@@ -31,6 +31,11 @@ pip install flask_cors
 npm install react-router-dom
 `
 
+### Install beautifulsoup4
+`
+pip install requests beautifulsoup4
+`
+
 ### Start the project
 `
 npm start
