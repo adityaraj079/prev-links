@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../App.css';
+import './Home.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+import Pagination from './Pagination'; // Import Pagination component
 
 function Home() {
   const [links, setLinks] = useState([]);
@@ -9,8 +9,8 @@ function Home() {
   const [linksPerPage] = useState(40);
 
   useEffect(() => {
-    fetch('https://links-backend-six.vercel.app/get_links_with_titles')
-    // fetch('http://localhost:5000/get_links_with_titles')
+    // fetch('https://links-backend-six.vercel.app/get_links_with_titles')
+    fetch('http://localhost:5000/get_links_with_titles')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -33,61 +33,32 @@ function Home() {
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
+  const truncateTitle = (title) => {
+    return title.length > 35 ? title.substring(0, 35) + '...' : title;
+  };
 
   return (
-    <div className="App">
-      <Sidebar />   {/* Render the sidebar component */}
-      <header className="App-header">
-        <div className='page-name'><h1>This is Home</h1> </div>
-        <div className='site-container'>
-          <div className="links-container">
-            {currentLinks.map((item, index) => (
-              <div className="link-box" key={index}>
-                <h3>{item.title}</h3>
-                <a href={item.link} target="_blank" rel="noreferrer noopener" style={{ color: 'white' }}>
+    <div className="container-fluid" style={{ backgroundImage: 'radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%)'}}>
+      <div className="row justify-content-center">
+        {currentLinks.map((item, index) => (
+          <div className="col-md-3" key={index} style={{width:'auto'}}>
+            <div className="shadow-lg p-3 mb-5 link-box rounded-4">
+            <p className="fs-4 link-opacity-75 text-dark-emphasis">
+                {item.title_from_link && item.title_from_link.trim() !== '' ? truncateTitle(item.title_from_link) : truncateTitle(item.title)}
+              </p>
+              <a href={item.link} target="_blank" rel="noreferrer noopener" >
                 {item.video_url ? (
-                    <img src={item.video_url} alt={item.link} />
+                  <img src={item.video_url} alt={item.link} className="d-block h-50 w-100" />
                 ) : (
-                    <img src={item.image_url} alt={item.link} />
+                  <img src={item.image_url} alt={item.link} className="d-block h-50 w-100" />
                 )}
-
-                {/* <img src={item.image_url === "Img not Found" ? "alternative_image_url" : item.image_url} alt={item.link} /> */}
-                </a>
-              </div>
-            ))}
+              </a>
+            </div>
           </div>
-          <Pagination
-            linksPerPage={linksPerPage}
-            totalLinks={links.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        </div>
-      </header>
+        ))}
+      </div>
+      <Pagination profilesPerPage={linksPerPage} totalProfiles={links.length} paginate={paginate} />
     </div>
   );
 }
-
-function Pagination({ linksPerPage, totalLinks, paginate, currentPage }) {
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(totalLinks / linksPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  return (
-    <nav>
-      <ul className='pagination'>
-        {pageNumbers.map(number => (
-          <li key={number} className={number === currentPage ? 'page-item active' : 'page-item'}>
-            <Link onClick={() => paginate(number)} to='/home' className='page-link'>
-              {number}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
-
 export default Home;

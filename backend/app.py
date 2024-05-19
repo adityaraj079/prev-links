@@ -11,7 +11,8 @@ import base64
 app = Flask(__name__)
 CORS(app)
 
-
+API_KEY = 'AIzaSyBHT0hpCoWKBYeIKNaI8MX93TBQPXkp1d8'
+CSE_ID = '81d73a7c66b7e4660'
 # API_KEY = 'c7c44c58ab660dc0237b096e240f5381b99b75efef1205db009c341203bfeb15'
 
 def search_image(query):
@@ -26,7 +27,17 @@ def search_image(query):
 def welcome():
     return "This is starting page"
 
-
+def get_title_from_url(url):
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        title = soup.title.string
+        if (title == 'Just a moment...'):
+            return None
+        return title
+    except Exception as e:
+        return None
+    
 def get_image_url_from_site(site_url):
     try:
         # Fetch the HTML content of the website
@@ -100,11 +111,13 @@ def get_links_with_titles():
     for idx, row in enumerate(ws.iter_rows(values_only=True), start=1):
         # Check if the row has at least 2 columns
         if len(row) >= 2:
+            
             title = row[0]
             link = row[1]
             image_url = row[2] if len(row) > 2 else ''  # Check if image URL is present in the Excel row
             video_url = row[3] if len(row) > 3 else ''  # Check if video URL is present in the Excel row
-            
+            title_from_link = row[4] if len(row) > 4 else ''
+
             # Check if image URL and video URL are not already present
             if not image_url:
                 # image_url = get_image_url_from_site(link)
@@ -119,13 +132,17 @@ def get_links_with_titles():
                 concated_video_url = concatenate_characters(video_url)
                 ws.cell(row=idx, column=4, value=concated_video_url)
 
+            if not title_from_link:
+                title_from_link = get_title_from_url(link)
+                ws.cell(row=idx, column=5, value=title_from_link)
+
             # Write URLs to the Excel file if they are obtained
             print(title,image_url,video_url)
             # Save changes to the Excel file
             wb.save('links-new.xlsx')
 
             # Append data to the JSON response
-            links_with_titles.append({'title': title, 'link': link, 'image_url': image_url, 'video_url': video_url})
+            links_with_titles.append({'title': title, 'link': link, 'image_url': image_url, 'video_url': video_url, 'title_from_link': title_from_link})
 
     return jsonify(links_with_titles)
 
@@ -236,6 +253,6 @@ def get_profile(profile_id):
             return jsonify({'error': 'Profile not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
+  
 if __name__ == '__main__':
     app.run(debug=True)
