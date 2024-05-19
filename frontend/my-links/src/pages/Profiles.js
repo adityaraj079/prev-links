@@ -9,7 +9,8 @@ const Profiles = () => {
   const profilesPerPage = 52; // Changed to constant value
 
   useEffect(() => {
-    fetch('http://localhost:5000/get_names')
+    fetch('https://links-backend-six.vercel.app/get_names')
+    // fetch('http://localhost:5000/get_names')
       .then(response => response.json())
       .then(data => setProfiles(data))
       .catch(error => console.error('Error:', error));
