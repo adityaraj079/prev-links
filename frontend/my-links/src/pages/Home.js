@@ -9,8 +9,8 @@ function Home() {
   const [linksPerPage] = useState(40);
 
   useEffect(() => {
-    fetch('https://links-backend-six.vercel.app/get_links_with_titles')
-    // fetch('http://localhost:5000/get_links_with_titles')
+    // fetch('https://links-backend-six.vercel.app/get_links_with_titles')
+    fetch('http://localhost:5000/get_links_with_titles')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -42,7 +42,7 @@ function Home() {
       <div className="row justify-content-center">
         {currentLinks.map((item, index) => (
           <div className="col-md-3" key={index} style={{width:'auto'}}>
-            <div className="shadow-lg p-3 mb-5 link-box rounded-4">
+            <div className="shadow-lg p-3 mb-2 link-box rounded-4">
             <p className="fs-4 link-opacity-75 text-dark-emphasis">
                 {item.title_from_link && item.title_from_link.trim() !== '' ? truncateTitle(item.title_from_link) : truncateTitle(item.title)}
               </p>

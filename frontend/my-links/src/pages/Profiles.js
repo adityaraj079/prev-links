@@ -10,7 +10,7 @@ const Profiles = () => {
 
   useEffect(() => {
     fetch('https://links-backend-six.vercel.app/get_names')
-    // fetch('http://localhost:5000/get_names')
+    // fetch('http://localhost:5000/get_names') 
       .then(response => response.json())
       .then(data => setProfiles(data))
       .catch(error => console.error('Error:', error));
@@ -34,13 +34,13 @@ const Profiles = () => {
 
   return (
     <div className="container-fluid" style={{ backgroundImage: 'radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%)' }}>
-      <div className="row justify-content-center">
+      <div className="row justify-content-center mb-2">
         {/* Map over profiles array */}
         {currentProfiles.map((profile, index) => (
-          <div className="col-md-4" key={index} style={{width:'300px', height:'450px'}}>
-            <div className="shadow-lg p-3 mb-5 profiles-container rounded-4 justify-content-center" style={{ backgroundImage: 'radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)' }}>
+          <div className="col-md-4 justify-content" key={index} style={{width:'300px', height:'400px'}}>
+            <div className="shadow-lg p-3 profiles-container rounded-4 justify-content-center" style={{ backgroundImage: 'radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)' }}>
               <Link to={`/profiles/${profile.id}`} class="link-opacity-75 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
-                <h2>{profile.name}</h2>
+                <p class="fw-semibold">{profile.name}</p>
               </Link>
               <div id={`carousel${index}`} className="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
