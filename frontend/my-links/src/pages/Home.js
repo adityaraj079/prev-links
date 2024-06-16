@@ -9,8 +9,8 @@ function Home() {
   const [linksPerPage] = useState(40);
 
   useEffect(() => {
-    // fetch('https://links-backend-six.vercel.app/get_links_with_titles')
-    fetch('http://localhost:5000/get_links_with_titles')
+    fetch('https://links-backend-six.vercel.app/get_links_with_titles')
+    // fetch('http://localhost:5000/get_links_with_titles')
     .then(response => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
