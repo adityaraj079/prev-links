@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Profiles.css'; // Import CSS file for Profiles component
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Pagination from './Pagination'; // Import Pagination component
 
@@ -16,15 +15,6 @@ const Profiles = () => {
       .catch(error => console.error('Error:', error));
   }, []);
 
-  const shuffleArray = (array) => {
-    // Implement a shuffling algorithm (e.g., Fisher-Yates shuffle)
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  };
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Calculate indexes for current page
@@ -33,37 +23,33 @@ const Profiles = () => {
   const currentProfiles = profiles.slice(indexOfFirstProfile, indexOfLastProfile);
 
   return (
-    <div className="container-fluid" style={{ backgroundImage: 'radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%)' }}>
-      <div className="row justify-content-center mb-2">
-        {/* Map over profiles array */}
-        {currentProfiles.map((profile, index) => (
-          <div className="col-md-4 justify-content" key={index} style={{width:'300px', height:'400px'}}>
-            <div className="shadow-lg p-3 profiles-container rounded-4 justify-content-center" style={{ backgroundImage: 'radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%)' }}>
-              <Link to={`/profiles/${profile.id}`} class="link-opacity-75 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
-                <p class="fw-semibold">{profile.name}</p>
-              </Link>
-              <div id={`carousel${index}`} className="carousel carousel-dark slide" data-bs-ride="carousel">
-                <div className="carousel-inner">
-                  {shuffleArray([profile.image, profile.image1, profile.image2, profile.image3, profile.image4, profile.image5]).map((image, idx) => (
-                    <div key={idx} className={`carousel-item ${idx === 0 ? 'active' : ''}`} style={{ backgroundImage: 'radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%)' }}>
-                      <img src={image} className="d-block h-50 w-100" alt={profile.name} style={{ maxWidth: '100%', maxHeight: '300px' }} />
+    <div className="container-fluid bg-dark text-white py-4 min-vh-100">
+      <div className="container">
+        <h2 className="text-center mb-4">Profiles</h2>
+        <div className="row g-4">
+          {currentProfiles.map((profile, index) => (
+            <div className="col-lg-3 col-md-4 col-sm-6" key={index}>
+              <div className="card bg-secondary text-white h-100 border-0">
+                <div className="card-body d-flex flex-column text-center">
+                  <Link to={`/profiles/${profile.id}`} className="text-decoration-none text-white">
+                    <h6 className="card-title">{profile.name}</h6>
+                  </Link>
+                  {profile.picture ? (
+                    <img src={profile.picture} alt={profile.name} className="card-img-bottom rounded-circle mx-auto mt-auto" style={{ height: '150px', width: '150px', objectFit: 'cover' }} />
+                  ) : (
+                    <div className="bg-dark rounded-circle d-flex align-items-center justify-content-center mx-auto mt-auto" style={{ height: '150px', width: '150px' }}>
+                      <i className="bi bi-person fs-1 text-muted"></i>
                     </div>
-                  ))}
+                  )}
                 </div>
-                <button className="carousel-control-prev" type="button" data-bs-target={`#carousel${index}`} data-bs-slide="prev">
-                  <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
-                <button className="carousel-control-next" type="button" data-bs-target={`#carousel${index}`} data-bs-slide="next">
-                  <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span className="visually-hidden">Next</span>
-                </button>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="d-flex justify-content-center mt-4">
+          <Pagination profilesPerPage={profilesPerPage} totalProfiles={profiles.length} paginate={paginate} />
+        </div>
       </div>
-      <Pagination profilesPerPage={profilesPerPage} totalProfiles={profiles.length} paginate={paginate} />
     </div>
   );
 }

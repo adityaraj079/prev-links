@@ -1,53 +1,113 @@
-# Getting Started with Create React App
+# LinkShoarder Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, aesthetic React application for managing and browsing video links and profiles. Built with Bootstrap for a clean dark theme experience.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **Welcome Page**: Clean landing page with navigation to main sections
+- **Video Gallery**: Browse and paginate through video links with thumbnails
+- **Profiles Section**: View profiles with images in a card-based layout
+- **Add Content**: Forms to add new videos and profiles to the database
+- **Responsive Design**: Mobile-friendly Bootstrap components
+- **Dark Theme**: Consistent dark mode throughout the application
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React 18** - Frontend framework
+- **React Router** - Client-side routing
+- **Bootstrap 5** - UI components and styling
+- **Axios** - HTTP client for API calls
+- **Create React App** - Build setup
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📦 Installation
 
-### `npm test`
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd linkshoarder/prev-links/frontend/my-links
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+3. **Start the development server**
+   ```bash
+   npm run start:frontend
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🏗️ Project Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+src/
+├── components/
+│   └── Sidebar.js          # Navigation sidebar
+├── pages/
+│   ├── Welcome.js          # Landing page
+│   ├── Home.js             # Video gallery
+│   ├── Profiles.js         # Profiles list
+│   ├── ProfilePage.js      # Individual profile view
+│   ├── AddVideo.js         # Add video form
+│   └── AddProfile.js       # Add profile form
+├── App.js                  # Main app component
+└── index.js                # App entry point
+```
 
-### `npm run eject`
+## 🔧 Available Scripts
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `npm start` - Runs the app in development mode
+- `npm run start:frontend` - Alternative start command
+- `npm run build` - Builds the app for production
+- `npm test` - Launches the test runner
+- `npm run eject` - Ejects from Create React App (irreversible)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🌐 API Integration
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The frontend connects to a backend API deployed on Vercel:
+- **Base URL**: `https://links-backend-six.vercel.app`
+- **Endpoints**:
+  - `GET /get_links_with_titles` - Fetch videos
+  - `GET /get_names` - Fetch profiles
+  - `POST /add_video` - Add new video
+  - `POST /add_profile` - Add new profile
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🎨 Design Philosophy
 
-## Learn More
+- **Minimalist**: Clean, uncluttered interface
+- **Dark Theme**: Easy on the eyes with Bootstrap's dark mode
+- **Fast Loading**: Optimized images and removed unnecessary assets
+- **Accessible**: Semantic HTML and Bootstrap's accessibility features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🚀 Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The app is configured for easy deployment:
 
-### Code Splitting
+1. **Build for production**
+   ```bash
+   npm run build
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. **Deploy the `build` folder** to your hosting service (Vercel, Netlify, etc.)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is private and proprietary.
+
+## 📞 Support
+
+For questions or issues, please create an issue in the repository.
 
 ### Analyzing the Bundle Size
 

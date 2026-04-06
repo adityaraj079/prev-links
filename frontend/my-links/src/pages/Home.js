@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Home.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Pagination from './Pagination'; // Import Pagination component
 
 function Home() {
@@ -33,31 +31,37 @@ function Home() {
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
-  const truncateTitle = (title) => {
-    return title.length > 35 ? title.substring(0, 35) + '...' : title;
-  };
 
   return (
-    <div className="container-fluid" style={{ backgroundImage: 'radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%)'}}>
-      <div className="row justify-content-center">
-        {currentLinks.map((item, index) => (
-          <div className="col-md-3" key={index} style={{width:'auto'}}>
-            <div className="shadow-lg p-3 mb-2 link-box rounded-4">
-            <p className="fs-4 link-opacity-75 text-dark-emphasis">
-                {item.title_from_link && item.title_from_link.trim() !== '' ? truncateTitle(item.title_from_link) : truncateTitle(item.title)}
-              </p>
-              <a href={item.link} target="_blank" rel="noreferrer noopener" >
-                {item.video_url ? (
-                  <img src={item.video_url} alt={item.link} className="d-block h-50 w-100" />
-                ) : (
-                  <img src={item.image_url} alt={item.link} className="d-block h-50 w-100" />
-                )}
-              </a>
+    <div className="container-fluid bg-dark text-white py-4 min-vh-100">
+      <div className="container">
+        <h2 className="text-center mb-4">Video Links</h2>
+        <div className="row g-4">
+          {currentLinks.map((item, index) => (
+            <div className="col-lg-3 col-md-4 col-sm-6" key={index}>
+              <div className="card bg-secondary text-white h-100 border-0">
+                <div className="card-body d-flex flex-column">
+                  <h6 className="card-title text-truncate" title={item.title}>
+                    {item.title}
+                  </h6>
+                  <a href={item.link} target="_blank" rel="noreferrer noopener" className="mt-auto">
+                    {item.image_url ? (
+                      <img src={item.image_url} alt={item.title} className="card-img-bottom rounded" style={{ height: '150px', objectFit: 'cover' }} />
+                    ) : (
+                      <div className="bg-dark d-flex align-items-center justify-content-center rounded" style={{ height: '150px' }}>
+                        <span className="text-muted">No Image</span>
+                      </div>
+                    )}
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="d-flex justify-content-center mt-4">
+          <Pagination profilesPerPage={linksPerPage} totalProfiles={links.length} paginate={paginate} />
+        </div>
       </div>
-      <Pagination profilesPerPage={linksPerPage} totalProfiles={links.length} paginate={paginate} />
     </div>
   );
 }
